@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "Black And Yellow Modern Burger Fast Food Facebook Ad@1x.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Black And Yellow Modern Burger Fast Food Facebook Ad@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Black And Yellow Modern Burger Fast Food Facebook Ad@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
