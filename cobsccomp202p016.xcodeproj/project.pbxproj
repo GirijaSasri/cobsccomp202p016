@@ -32,6 +32,8 @@
 		844FEE792980291500606416 /* FavouriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844FEE782980291500606416 /* FavouriteView.swift */; };
 		844FEE7C2980298100606416 /* RecipeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844FEE7B2980298100606416 /* RecipeDetailsView.swift */; };
 		844FEE7E298029ED00606416 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844FEE7D298029ED00606416 /* RegisterView.swift */; };
+		84C6957F2982DC1200870BF5 /* FavoriteRecipeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C6957E2982DC1200870BF5 /* FavoriteRecipeService.swift */; };
+		84C695812982E48500870BF5 /* FavoriteRecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C695802982E48500870BF5 /* FavoriteRecipeViewModel.swift */; };
 		84F6E88C297DDB6F00D2DBD0 /* cobsccomp202p016App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F6E88B297DDB6F00D2DBD0 /* cobsccomp202p016App.swift */; };
 		84F6E890297DDB7000D2DBD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84F6E88F297DDB7000D2DBD0 /* Assets.xcassets */; };
 		84F6E893297DDB7000D2DBD0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84F6E892297DDB7000D2DBD0 /* Preview Assets.xcassets */; };
@@ -80,6 +82,8 @@
 		844FEE782980291500606416 /* FavouriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteView.swift; sourceTree = "<group>"; };
 		844FEE7B2980298100606416 /* RecipeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsView.swift; sourceTree = "<group>"; };
 		844FEE7D298029ED00606416 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		84C6957E2982DC1200870BF5 /* FavoriteRecipeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeService.swift; sourceTree = "<group>"; };
+		84C695802982E48500870BF5 /* FavoriteRecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeViewModel.swift; sourceTree = "<group>"; };
 		84F6E888297DDB6F00D2DBD0 /* cobsccomp202p016.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cobsccomp202p016.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F6E88B297DDB6F00D2DBD0 /* cobsccomp202p016App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cobsccomp202p016App.swift; sourceTree = "<group>"; };
 		84F6E88F297DDB7000D2DBD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 			children = (
 				844FEE662980208E00606416 /* AuthViewModel.swift */,
 				8434A39D2981C6C100754298 /* RecipeViewModel.swift */,
+				84C695802982E48500870BF5 /* FavoriteRecipeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 			children = (
 				844FEE6A298020C900606416 /* AuthService.swift */,
 				8434A39B2981C68F00754298 /* RecipeService.swift */,
+				84C6957E2982DC1200870BF5 /* FavoriteRecipeService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -429,6 +435,7 @@
 				844FEE762980237400606416 /* UserDetails.swift in Sources */,
 				844FEE792980291500606416 /* FavouriteView.swift in Sources */,
 				844FEE5329801DEB00606416 /* HomeSearchBar.swift in Sources */,
+				84C695812982E48500870BF5 /* FavoriteRecipeViewModel.swift in Sources */,
 				844FEE5C29801F0A00606416 /* InputPasswordField.swift in Sources */,
 				844FEE4529801C2200606416 /* HomeView.swift in Sources */,
 				844FEE4829801C6300606416 /* HomeHeader.swift in Sources */,
@@ -444,6 +451,7 @@
 				844FEE7C2980298100606416 /* RecipeDetailsView.swift in Sources */,
 				844FEE642980205200606416 /* LoginView.swift in Sources */,
 				844FEE6B298020C900606416 /* AuthService.swift in Sources */,
+				84C6957F2982DC1200870BF5 /* FavoriteRecipeService.swift in Sources */,
 				844FEE5729801E9C00606416 /* HomeRecipeCard.swift in Sources */,
 				844FEE5F29801FEB00606416 /* Recipe.swift in Sources */,
 			);

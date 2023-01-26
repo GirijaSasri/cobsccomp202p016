@@ -2,13 +2,15 @@ import SwiftUI
 
 struct RecipeDetailsView: View {
     var data: Recipe
+    @StateObject var favoriteRecipeViewModel = FavoriteRecipeViewModel()
+    
     var body: some View {
         VStack(alignment: .leading){
             AsyncImage(url: URL(string: data.image))
             { image in image
                         .resizable()
                         .frame(height: 250)
-                        .scaledToFit()
+                        .scaledToFill()
             } placeholder: {
                 ProgressView()
                     .frame(maxWidth: .infinity, minHeight: 250, maxHeight: 250)
@@ -27,12 +29,12 @@ struct RecipeDetailsView: View {
                 .padding(.top, 5)
                 .padding(.bottom,2)
             VStack(alignment: .leading) {
-                ForEach(0..<5) { index in
+                ForEach (data.ingredients, id: \.id) { ingredient in
                     HStack(){
-                        Text(data.ingredients[index].name)
+                        Text(ingredient.name)
                             .font(.system(size: 14, weight: .thin))
                             .padding(.leading)
-                        Text(data.ingredients[index].quantity)
+                        Text(ingredient.quantity)
                             .font(.system(size: 14, weight: .thin))
                             .padding(.leading)
                     }
@@ -40,18 +42,8 @@ struct RecipeDetailsView: View {
             }.padding(.leading)
             Spacer()
             Button(action: {
+                favoriteRecipeViewModel.addFavorite(id: data.id!)
                }) {
-//                   if(data.isCompleted){
-//                       Text("Completed")
-//                           .frame(maxWidth: .infinity)
-//                           .font(.system(size: 18))
-//                           .padding()
-//                           .foregroundColor(.white)
-//                           .overlay(
-//                               RoundedRectangle(cornerRadius: 12)
-//                                   .stroke(Color.white, lineWidth: 2)
-//                       )
-//                   } else {
                        Text("Add to Favourite")
                            .frame(maxWidth: .infinity)
                            .font(.system(size: 18))

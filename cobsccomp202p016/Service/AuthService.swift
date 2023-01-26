@@ -51,8 +51,7 @@ class AuthService: AuthServiceProtocol {
                 guard let uid = Auth.auth().currentUser?.uid else { return }
                 let userData: [String: Any] = [
                     "email": user.email,
-                    "first_name": user.firstName,
-                    "last_name": user.lastName,
+                    "full_name": user.fullName
                 ]
                 db.collection("user").document(uid).setData(userData) { err in
                     if let err = err {

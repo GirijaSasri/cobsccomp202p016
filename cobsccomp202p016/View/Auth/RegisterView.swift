@@ -4,6 +4,7 @@ struct RegisterView: View {
     @State var fullName = ""
     @State var email = ""
     @State var password = ""
+    @State var confirmPassword = ""
     
     @StateObject var authViewModel = AuthViewModel()
     
@@ -26,7 +27,8 @@ struct RegisterView: View {
             
             InputTextField(title: "Full Name", value: $fullName)
             InputTextField(title: "Email", value: $email)
-            InputTextField(title: "Password", value: $password)
+            InputPasswordField(title: "Password", value: $password)
+            InputPasswordField(title: "Confirm Password", value: $confirmPassword)
             Text(authViewModel.errorMsg)
                 .font(.system(size: 14))
                 .foregroundColor(.pink)
@@ -34,7 +36,11 @@ struct RegisterView: View {
                 .padding(.leading)
 
             Button(action: {
-                authViewModel.signUp(user: UserDetails(firstName: fullName, lastName: fullName, email: email), password: password, confirmPassword: password)
+                if(password != confirmPassword){
+                    authViewModel.errorMsg = "Password not match!"
+                } else {
+                    authViewModel.signUp(user: UserDetails(fullName: fullName, email: email), password: password, confirmPassword: password)
+                }
                }) {
                    if authViewModel.isLoadingActive {
                         VStack(alignment: .center) {
@@ -61,7 +67,7 @@ struct RegisterView: View {
                             )
                     }
                }
-               .background(Color.green) // If you have this
+               .background(Color.green)
                .cornerRadius(12)
                .padding(.top)
         }.padding(.horizontal)

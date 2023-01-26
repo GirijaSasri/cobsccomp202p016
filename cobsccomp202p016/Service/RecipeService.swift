@@ -9,7 +9,7 @@ protocol RecipeServiceProtocol {
 }
 
 class RecipeService: RecipeServiceProtocol {
-    
+
     func getRecipe(completion: @escaping (Result<QuerySnapshot?, Error>) -> Void) {
         let db = Firestore.firestore()
         db.collection("recipe")
@@ -22,5 +22,4 @@ class RecipeService: RecipeServiceProtocol {
                 }
         
     }
-    
 }
