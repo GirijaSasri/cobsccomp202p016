@@ -3,27 +3,24 @@ import SwiftUI
 struct FavouriteView: View {
     let data = (1...100).map { "Item \($0)" }
 
-        let columns = [
-            GridItem(.adaptive(minimum: 150))
-        ]
+    let columns = [
+        GridItem(.adaptive(minimum: 150))
+    ]
+    @StateObject var favoriteRecipeViewModel = FavoriteRecipeViewModel()
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(data, id: \.self) { item in
-                    HomeRecipeCard(recipe: Recipe(
-                        title: "Recipe #1",
-                        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                        image: "https://cdn.pixabay.com/photo/2015/09/16/20/10/dough-943245_1280.jpg",
-    //                    isCompleted: false,
-                        ingredients: [Ingredient(name: "ingredient #1", quantity: "1"),
-                                      Ingredient(name: "ingredient #2", quantity: "5"),
-                                      Ingredient(name: "ingredient #3", quantity: "1.5"),
-                                      Ingredient(name: "ingredient #4", quantity: "100g"),
-                                      Ingredient(name: "ingredient #5", quantity: "1L"),]
-                    ))
+            if favoriteRecipeViewModel.isLoadingActive {
+                ProgressView()
+                    .frame(maxWidth: .infinity, minHeight: 120, maxHeight: 120)
+                    .background(.gray.opacity(0.1))
+            } else {
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(favoriteRecipeViewModel.recipes, id: \.id) { item in
+                        HomeRecipeCard(recipe: item)
+                    }
                 }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
         }
         .padding(.top)
     }

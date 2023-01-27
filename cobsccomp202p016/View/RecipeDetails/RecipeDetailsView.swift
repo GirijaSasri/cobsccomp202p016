@@ -42,8 +42,36 @@ struct RecipeDetailsView: View {
             }.padding(.leading)
             Spacer()
             Button(action: {
-                favoriteRecipeViewModel.addFavorite(id: data.id!)
+                let results = favoriteRecipeViewModel.recipes.filter { el in el.id == data.id }
+                if results.count > 0 {
+                    favoriteRecipeViewModel.deleteFavorite(recipe: data)
+                } else {
+                    favoriteRecipeViewModel.addFavorite(recipe: data)
+                }
                }) {
+                   let results = favoriteRecipeViewModel.recipes.filter { el in el.id == data.id }
+                   if favoriteRecipeViewModel.isLoadingActive {
+                       ProgressView()
+                           .frame(maxWidth: .infinity)
+                           .font(.system(size: 18))
+                           .padding()
+                           .foregroundColor(.green)
+                           .background(.white)
+                           .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.green, lineWidth: 2))
+                   } else if results.count > 0 {
+                       Text("Remove from Favorite")
+                           .frame(maxWidth: .infinity)
+                           .font(.system(size: 18))
+                           .padding()
+                           .foregroundColor(.green)
+                           .background(.white)
+                           .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.green, lineWidth: 2)
+                           )
+                   } else {
                        Text("Add to Favourite")
                            .frame(maxWidth: .infinity)
                            .font(.system(size: 18))
@@ -51,10 +79,10 @@ struct RecipeDetailsView: View {
                            .foregroundColor(.green)
                            .background(.white)
                            .overlay(
-                               RoundedRectangle(cornerRadius: 12)
-                                   .stroke(Color.green, lineWidth: 2)
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.green, lineWidth: 2)
                            )
-//                   }
+                   }
                }
                .background(Color.green) // If you have this
                .cornerRadius(12)

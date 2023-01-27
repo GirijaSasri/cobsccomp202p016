@@ -7,11 +7,4 @@ struct Recipe: Identifiable, Codable {
     var description: String
     var image: String
     var ingredients: [Ingredient]
-    
-    enum CodingKeys: String, CodingKey {
-        case title
-        case description
-        case image
-        case ingredients
-    }
 }

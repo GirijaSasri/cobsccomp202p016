@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var recipeViewModel = RecipeViewModel()
+    @StateObject var favoriteRecipeViewModel = FavoriteRecipeViewModel()
     var body: some View {
         NavigationView {
             ZStack {

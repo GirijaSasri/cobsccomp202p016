@@ -8,7 +8,11 @@ protocol FavoriteRecipeServiceProtocol {
         completion: @escaping (Result<QuerySnapshot?, Error>) -> Void)
     
     func createRecipe(
-        id: String,
+        recipe: Recipe,
+        completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func deleteRecipe(
+        recipe: Recipe,
         completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -16,7 +20,9 @@ class FavoriteRecipeService: FavoriteRecipeServiceProtocol {
     
     func getFavoriteRecipe(completion: @escaping (Result<QuerySnapshot?, Error>) -> Void) {
         let db = Firestore.firestore()
-        db.collection("recipe")
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection("user").document(uid).collection("favorite_recipe")
                 .getDocuments() { (querySnapshot, error) in
             if let error = error {
                 completion(.failure(error))
@@ -26,17 +32,29 @@ class FavoriteRecipeService: FavoriteRecipeServiceProtocol {
         }
     }
     
-    func createRecipe(id: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func createRecipe(recipe: Recipe, completion: @escaping (Result<Void, Error>) -> Void) {
         let db = Firestore.firestore()
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let documentRefString = db.collection("recipe").document(id)
-        let recipeRef = db.document(documentRefString.path)
         
-        let data: [String: Any] = [
-            "recipe":recipeRef
-        ]
+        do {
+            try db.collection("user").document(uid).collection("favorite_recipe").document(recipe.id!).setData(from: recipe) { err in
+                if let err = err {
+                    print(err.localizedDescription)
+                    completion(.failure(err))
+                } else {
+                    completion(.success(()))
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    func deleteRecipe(recipe: Recipe, completion: @escaping (Result<Void, Error>) -> Void) {
+        let db = Firestore.firestore()
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("user").document(uid).collection("favorite_recipe").document().setData(data) { err in
+        db.collection("user").document(uid).collection("favorite_recipe").document(recipe.id!).delete() { err in
             if let err = err {
                 print(err.localizedDescription)
                 completion(.failure(err))
@@ -45,5 +63,4 @@ class FavoriteRecipeService: FavoriteRecipeServiceProtocol {
             }
         }
     }
-    
 }

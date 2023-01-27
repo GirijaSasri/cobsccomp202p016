@@ -29,7 +29,6 @@ class RecipeViewModel: ObservableObject{
                     self.recipes = documents.compactMap { (queryDocumentSnapshot) -> Recipe? in
                         return try? queryDocumentSnapshot.data(as: Recipe.self)
                     }
-                print(self.recipes.count)
                     self.isLoadingActive = false
                 case .failure(_):
                     self.isLoadingActive = false
