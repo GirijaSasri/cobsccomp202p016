@@ -78,5 +78,6 @@ class FavoriteRecipeViewModel: ObservableObject{
                     self.isLoadingActive = false
             }
         }
+        isLoadingActive = false
     }
 }

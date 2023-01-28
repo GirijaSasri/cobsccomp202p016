@@ -70,6 +70,7 @@ class AuthViewModel: ObservableObject{
         do {
             try Auth.auth().signOut()
             isUserLogedIn = false
+            UserDefaults.resetStandardUserDefaults()
         }
         catch { print("already logged out") }
     }

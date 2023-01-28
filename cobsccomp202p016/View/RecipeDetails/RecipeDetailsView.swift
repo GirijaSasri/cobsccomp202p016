@@ -3,6 +3,8 @@ import SwiftUI
 struct RecipeDetailsView: View {
     var data: Recipe
     @StateObject var favoriteRecipeViewModel = FavoriteRecipeViewModel()
+    @StateObject var authViewModel = AuthViewModel()
+    @State var isLoginActive = false
     
     var body: some View {
         VStack(alignment: .leading){
@@ -41,52 +43,63 @@ struct RecipeDetailsView: View {
                 }
             }.padding(.leading)
             Spacer()
-            Button(action: {
-                let results = favoriteRecipeViewModel.recipes.filter { el in el.id == data.id }
-                if results.count > 0 {
-                    favoriteRecipeViewModel.deleteFavorite(recipe: data)
-                } else {
-                    favoriteRecipeViewModel.addFavorite(recipe: data)
+            NavigationLink(
+                destination: LoginView(),
+                isActive: $isLoginActive){
+                    Button(action: {
+                        if authViewModel.isUserLogedIn {
+                            let results = favoriteRecipeViewModel.recipes.filter { el in el.id == data.id }
+                            if results.count > 0 {
+                                favoriteRecipeViewModel.deleteFavorite(recipe: data)
+                            } else {
+                                favoriteRecipeViewModel.addFavorite(recipe: data)
+                            }
+                        } else {
+                            isLoginActive = true;
+                        }
+                       }) {
+                           let results = favoriteRecipeViewModel.recipes.filter { el in el.id == data.id }
+                           if favoriteRecipeViewModel.isLoadingActive {
+                               ProgressView()
+                                   .frame(maxWidth: .infinity)
+                                   .font(.system(size: 18))
+                                   .padding()
+                                   .foregroundColor(.green)
+                                   .background(.white)
+                                   .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.green, lineWidth: 2))
+                           } else if results.count > 0 {
+                               Text("Remove from Favorite")
+                                   .frame(maxWidth: .infinity)
+                                   .font(.system(size: 18))
+                                   .padding()
+                                   .foregroundColor(.green)
+                                   .background(.white)
+                                   .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.green, lineWidth: 2)
+                                   )
+                           } else {
+                               Text("Add to Favourite")
+                                   .frame(maxWidth: .infinity)
+                                   .font(.system(size: 18))
+                                   .padding()
+                                   .foregroundColor(.green)
+                                   .background(.white)
+                                   .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.green, lineWidth: 2)
+                                   )
+                           }
+                       }
+                       .background(Color.green) // If you have this
+                       .cornerRadius(12)
+                       .padding()
                 }
-               }) {
-                   let results = favoriteRecipeViewModel.recipes.filter { el in el.id == data.id }
-                   if favoriteRecipeViewModel.isLoadingActive {
-                       ProgressView()
-                           .frame(maxWidth: .infinity)
-                           .font(.system(size: 18))
-                           .padding()
-                           .foregroundColor(.green)
-                           .background(.white)
-                           .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.green, lineWidth: 2))
-                   } else if results.count > 0 {
-                       Text("Remove from Favorite")
-                           .frame(maxWidth: .infinity)
-                           .font(.system(size: 18))
-                           .padding()
-                           .foregroundColor(.green)
-                           .background(.white)
-                           .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.green, lineWidth: 2)
-                           )
-                   } else {
-                       Text("Add to Favourite")
-                           .frame(maxWidth: .infinity)
-                           .font(.system(size: 18))
-                           .padding()
-                           .foregroundColor(.green)
-                           .background(.white)
-                           .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.green, lineWidth: 2)
-                           )
-                   }
-               }
-               .background(Color.green) // If you have this
-               .cornerRadius(12)
-               .padding()
+        }
+        .navigationDestination(isPresented: $isLoginActive) {
+                      LoginView()
         }
     }
 }

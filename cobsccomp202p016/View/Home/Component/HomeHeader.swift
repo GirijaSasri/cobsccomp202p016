@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeHeader: View {
     @StateObject var authViewModel = AuthViewModel()
+    @State var name = ""
     var body: some View {
         HStack(){
             VStack(alignment: .leading){
@@ -12,7 +13,7 @@ struct HomeHeader: View {
                     NavigationLink(destination: getDestination(isLoged: authViewModel.isUserLogedIn)
                     ){
                         if authViewModel.isUserLogedIn {
-                            Text("Jega")
+                            Text(name)
                                 .fontWeight(.semibold)
                                 .font(.system(size: 33))
                         } else {
@@ -26,6 +27,15 @@ struct HomeHeader: View {
             }
             Spacer()
         }.padding(.horizontal)
+            .onAppear{
+                        let defaults = UserDefaults.standard
+                        if let user = defaults.object(forKey: "userDetails") as? Data {
+                            let decoder = JSONDecoder()
+                            if let loadedUser = try? decoder.decode(UserDetails.self, from: user) {
+                                name = loadedUser.fullName
+                            }
+                        }
+                    }
     }
     
     func getDestination(isLoged: Bool) -> AnyView {
