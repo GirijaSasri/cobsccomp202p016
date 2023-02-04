@@ -41,9 +41,9 @@ struct LoginView: View {
                                 .foregroundColor(.orange)
                                 Spacer()
                             }.foregroundColor(Color(
-                                UIColor(named: "ButtonTextColor")!))
+                                UIColor(named:"PrimaryBackgroundColor")!))
                                 .frame(width: 250, height: 50)
-                                .background(Color(UIColor(named: "MainColor")!))
+                                .background(Color(UIColor(named: "PrimaryAppColor")!))
                                 .cornerRadius(8)
                                    
                     } else {
